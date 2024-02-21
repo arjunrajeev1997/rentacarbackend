@@ -1,4 +1,5 @@
-const mongoose=require( 'mongoose');
+const mongoose = require('mongoose');
+
 
 mongoose.connect(process.env.BASE_URL, {
     useNewUrlParser: true,
@@ -6,5 +7,6 @@ mongoose.connect(process.env.BASE_URL, {
 }).then(() => {
     console.log("MongoDB Atlas connected...");
 }).catch((error) => {
-    console.log("Connection error", error);
+    console.log("Connection error", error);
 });
+

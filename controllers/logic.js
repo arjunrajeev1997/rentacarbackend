@@ -1,7 +1,8 @@
 const admins= require("../Models/modelcollection")
 const cars=require("../Models/carscollection")
 const enquiries=require("../Models/enquiry")
-
+const luxuries = require("../Models/luxury")
+const electrics=require("../Models/electric")
 
 
 //logicc for admin signup
@@ -59,6 +60,44 @@ const addcars=async (req,res)=>{
      
 }
 
+//add luxury
+
+const addLuxurycars=async (req,res)=>{
+   
+    
+    const{brand,price,rate,facility,seat,image}=req.body
+    console.log({brand,price,rate,facility,seat,image});
+    let luxurycar={brand,price,rate,facility,seat,image}
+    await luxuries.create(luxurycar).then((result,error)=>{
+        if(result !="null" && result != ""){
+            res.send(result)
+        }
+        else{
+            res.send("error",error)
+        }
+    })
+     
+}
+
+//add electric
+const addElectriccars=async (req,res)=>{
+   
+    
+    const{brand,price,rate,facility,seat,image}=req.body
+    console.log({brand,price,rate,facility,seat,image});
+    let electric={brand,price,rate,facility,seat,image}
+    await electrics.create(electric).then((result,error)=>{
+        if(result !="null" && result != ""){
+            res.send(result)
+        }
+        else{
+            res.send("error",error)
+        }
+    })
+     
+}
+
+
 
 //logic form login
 const adminLogin=async (req,res)=>{
@@ -95,6 +134,39 @@ const getAllCars=async(req,res)=>{
       res.status(400).json("connection error", error);
     }
   }
+
+
+  //luxury 
+
+  const getAllLuxuryCars=async(req,res)=>{
+    try {
+      const data = await luxuries.find();
+      if (data) {
+        res.status(200).json(data);
+      } else {
+        res.status(400).json("No data found");
+      }
+    } catch (error) {
+      res.status(400).json("connection error", error);
+    }
+  }
+
+  //electric
+
+  const getAllElectricCars=async(req,res)=>{
+    try {
+      const data = await electrics.find();
+      if (data) {
+        res.status(200).json(data);
+      } else {
+        res.status(400).json("No data found");
+      }
+    } catch (error) {
+      res.status(400).json("connection error", error);
+    }
+  }
+
+
 //logic for enquiry sending
   const addEnquiry=async (req,res)=>{
     const{uname,email,phn,days}=req.body
@@ -127,4 +199,4 @@ const getEnquiry=async (req,res)=>{
 }
 
 
-    module.exports={signupAdmin,addcars,adminLogin,getAllCars,addEnquiry,getEnquiry}
+    module.exports={signupAdmin,addcars,adminLogin,getAllCars,addEnquiry,getEnquiry,getAllLuxuryCars,getAllElectricCars,addLuxurycars,addElectriccars}
